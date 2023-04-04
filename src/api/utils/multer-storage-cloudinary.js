@@ -1,3 +1,5 @@
+// import dotenv from 'dotenv'
+// dotenv.config()
 import {v2 as cloudinary} from 'cloudinary'
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import multer from 'multer';
@@ -5,9 +7,9 @@ import multer from 'multer';
 // const app = express();
 // Configuration 
 cloudinary.config({
-    cloud_name: "dzo1tqhjz",
-    api_key: "924279883175895",
-    api_secret: "KQI6ffIcNLkWtFlETOvt0b0jZS8"
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET
 });
 
 const storage = new CloudinaryStorage({
