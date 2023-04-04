@@ -14,10 +14,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-// console.log(process.env.CONNECTION_STRING)
-//mongoose
-const connection_string = 'mongodb://localhost/mica'  || process.env.CONNECTION_STRING
-mongoose.connect(connection_string)
+
+if(process.env.NODE_ENV === 'production'){
+
+    mongoose.connect(process.env.CONNECTION_STRING)
+}else{
+    mongoose.connect('mongodb://localhost/mica')
+}
+
+console.log(process.env.NODE_ENV)
 
 app.get('/', (req, res) => {
     res.send('hello')
