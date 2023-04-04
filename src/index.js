@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// console.log(process.env.CONNECTION_STRING)
 //mongoose
 mongoose.connect(process.env.CONNECTION_STRING)
 
