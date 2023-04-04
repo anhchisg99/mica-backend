@@ -16,7 +16,8 @@ app.use(bodyParser.json())
 
 // console.log(process.env.CONNECTION_STRING)
 //mongoose
-mongoose.connect(process.env.CONNECTION_STRING)
+const connection_string = 'mongodb://localhost/mica'  || process.env.CONNECTION_STRING
+mongoose.connect(connection_string)
 
 app.get('/', (req, res) => {
     res.send('hello')
