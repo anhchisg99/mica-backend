@@ -16,13 +16,14 @@ app.use(bodyParser.json())
 
 
 if(process.env.NODE_ENV === 'production'){
-
+    console.log('use remote')
     mongoose.connect(process.env.CONNECTION_STRING)
 }else{
+    // console.log('use local')
     mongoose.connect('mongodb://localhost/mica')
 }
 
-console.log(process.env.NODE_ENV)
+// console.log(process.env.NODE_ENV)
 
 app.get('/', (req, res) => {
     res.send('hello')
