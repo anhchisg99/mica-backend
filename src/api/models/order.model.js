@@ -27,11 +27,14 @@ const orderSchema = new Schema({
     timestamps: true
 })
 orderSchema.pre('save', async function (next) {
+    let  str = this.line_items.map(item => `@${item.item}`)
+    str = `ID\s ${str.join(', ')}`
+    console.log(this.line_items)
     let mailOptions = {
         from: 'anhchictw311@gmail.com',
         to: 'cuongcuoi1010@gmail.com',
         subject: 'Có đơn hàng đang tới ...',
-        text: "Customer: " + this.customer_name + " Phone: " + this.phone + "Cart: " + " link: " + this.quotes
+        text: `Customer: ${this.customer_name} \n Phone: ${this.phone} \n Cart: ${str}`
     }
     try {
         nodeMailer.sendMail(mailOptions, function (error, info) {
