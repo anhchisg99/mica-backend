@@ -26,30 +26,30 @@ const orderSchema = new Schema({
 }, {
     timestamps: true
 })
-// orderSchema.pre('save', async function (next) {
-//     let  str = this.line_items.map(item => `@${item.item}`)
-//     str = `ID\s ${str.join(', ')}`
-//     console.log(this.line_items)
-//     let mailOptions = {
-//         from: 'anhchictw311@gmail.com',
-//         to: 'cuongcuoi1010@gmail.com',
-//         subject: 'Có đơn hàng đang tới ...',
-//         text: `Customer: ${this.customer_name} \n Phone: ${this.phone} \n Cart: ${str}`
-//     }
-//     try {
-//         nodeMailer.sendMail(mailOptions, function (error, info) {
-//             if (error) {
-//                 console.log(error);
-//             } else {
-//                 console.log('Email sent: ' + info.response);
-//                 next()
+orderSchema.pre('save', async function (next) {
+    let  str = this.line_items.map(item => `@${item.item}`)
+    str = `ID\s ${str.join(', ')}`
+    console.log(this.line_items)
+    let mailOptions = {
+        from: 'anhchictw311@gmail.com',
+        to: 'cuongcuoi1010@gmail.com',
+        subject: 'Có đơn hàng đang tới ...',
+        text: `Customer: ${this.customer_name} \n Phone: ${this.phone} \n Cart: ${str}`
+    }
+    try {
+        nodeMailer.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+                next()
 
-//             }
-//         });
-//     } catch (error) {
-//         next(error)
-//     }
-// })
+            }
+        });
+    } catch (error) {
+        next(error)
+    }
+})
 
 const Orders = mongoose.model('Orders', orderSchema)
 export default Orders
